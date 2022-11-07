@@ -1,0 +1,135 @@
+import java.util.Scanner;
+import java.util.File;
+import java.util.FileNotFoundException;
+
+public class Comp2 {
+	public static void main(String[] args) {
+		String fileName = "query.csv";
+		int user = showMenu();
+
+		if(user == 1){
+			average = computeAvg(earthquakeValues);
+			System.out.println("The average of the data values is: " +average);
+		}else{
+			if(user == 2){
+				minValue = findIndexofMin(double [] values);
+				System.out.println("The min value is: " +minValue);
+			}else{
+				if(user == 3){
+					maxValue = findIndexofMax(double [] values);
+				System.out.println("The max value is: " +maxValue);
+				}else{
+					System.out.println("Invalid Entry..");
+				}
+			}
+		}
+	}
+
+	public static String[][] getEarthquakeDatabase(String fileName) {
+		Scanner scn;
+		File file = new File(fileName);
+
+		int rows = 0;
+		int columns = 0;
+		int counter = 0;
+		String data;
+		String[][] dataArray;
+
+		try {
+			scn = new Scanner(file);
+			if (scn.hasNext()) {
+				scn.nextLine();
+			}
+			while (scn.hasNext()) {
+				data = scn.nextLine();
+				rows++;
+				columns = data.split(",").length;
+			}
+			dataArray = new String[rows][columns];
+			scn.close();
+			counter = 0;
+			scn = new Scanner(file);
+			if (scn.hasNext()) {
+				scn.nextLine();
+			}
+			while (scn.hasNext()) {
+				data = scn.nextLine();
+				dataArray[counter] = data.split(",");
+				counter++;
+			}
+			scn.close();
+		} catch (FileNotFoundException error) {
+			System.out.println("Error... file not found.");
+		}
+		return dataArray;
+	}
+
+	public static double[] getEarthquakeValues(String[][] earthquakeDatabase) {
+		double[] values = new double [earthquakeDatabase.length];
+		for (int i = 0; i < earthquakeDatabase.length; i++) {
+			values[i] = double.valueOf(earthquakeDatabase[i][?]); // check rows, columns
+		}
+		return values;
+	}
+
+	public static int showMenu() {
+
+		System.out.println("Welcome, please select option...");
+		System.out.println("1 - Compute average of valid values");
+		System.out.println("2 - Show minimum value");
+		System.out.println("3 - Show maximum value");
+
+		Scanner scn = new Scanner(System.in);
+		int userOption = scn.nextInt();
+		scn.close();
+		return userOption;
+	}
+
+	public static double computeAvg(double[] values) {
+		double average = 0.0;
+		double sum = 0.0;
+
+		for (int i = 0; i < values.length; i++) {
+			sum = sum + values[i];
+		}
+
+		average = sum / values.length;
+		return average;
+	}
+
+	public static void displayInfo(String fileName, int lengthArray, double average) {
+		System.out.println("The name of the file is: " + fileName);
+		System.out.println("The number of valid values are: " + lengthArray);
+		System.out.println("The average is: " + average);
+	}
+
+	public static int findIndexOfMax(double[] values) {
+		int indexMax = 0;
+		double maxValue = values[0];
+		for (int i = 0; i < values.length; i++) {
+			if (values[i] > maxValue) {
+				indexMax = i;
+				maxValue = values[i];
+			}
+		}
+0		return indexMax;
+	}
+
+	public static int findIndexOfMin(double[] values) {
+		int indexMin = 0;
+		double minValue = values[0];
+		for (int i = 0; i < values.length; i++) {
+			if (values[i] < minValue) {
+				indexMin = i;
+				minValue = values[i];
+			}
+		}
+		return indexMin;
+	}
+
+	public static String getLocTimeMagMax(String[][] earthquakeDatabase) {
+		// TODO
+
+	}
+
+}
